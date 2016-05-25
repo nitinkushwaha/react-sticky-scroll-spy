@@ -1,0 +1,54 @@
+.openSpace{
+	display: block;
+	height:500px;
+}
+#topMenu {
+    z-index: 1;
+    background: white;
+    height:50px;
+}
+
+#topMenu li {
+    float: left;
+    list-style: none;
+}
+
+#topMenu a {
+    display: block;
+    padding: 5px 25px 7px 25px;
+    width: 4em;
+    text-align: center;
+    -webkit-transition: .5s all ease-out;
+    -moz-transition: .5s all ease-out;
+    transition: .5s all ease-out;
+    border-top: 3px solid white;
+    color: #aaa;
+    text-decoration: none;
+}
+
+#topMenu a:hover {
+    color: #000;
+}
+
+#topMenu li.active a {
+    border-top: 3px solid #333;
+    color: #333;
+}
+
+.foo {
+	display: block;
+    height: 400px;
+    width: 100%;
+}
+
+.bar {
+	display: block;
+    height: 800px;
+    width: 100%;
+}
+
+.baz {
+	display: block;
+    height: 1200px;
+    width: 100%;
+}
