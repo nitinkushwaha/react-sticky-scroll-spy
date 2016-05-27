@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class ReactStickyScrollSpy extends Component{
+class ReactStickyScrollSpy extends React.Component{
 	constructor (props) {
+		console.log('was in constructor');
 		super(props);
 		this.easingEffects = {
 	        linear: function(t) {
@@ -109,9 +110,10 @@ class ReactStickyScrollSpy extends Component{
 	        easeInOutBounce: function(t) {
 	            return .5 > t ? .5 * easingEffects.easeInBounce(2 * t) : .5 * easingEffects.easeOutBounce(2 * t - 1) + .5
 	        }
-    };
+    	};
 	}
 	componentDidMount () {
+		console.log('was here');
 		window.addEventListener('scroll', this.scrollEvent.bind(this, this));
 
 		this.menuItems = this.refs.sticky.getElementsByTagName('a');
@@ -126,6 +128,7 @@ class ReactStickyScrollSpy extends Component{
 		}
 	}
 	componentWillUnmount () {
+		console.log('was in unmount');
     	window.removeEventListener('scroll', this.scrollEvent);
     	for(var i = 0; i < this.scrollItems.length; i++) {
     		let item = this.scrollItems.item(i);
@@ -133,6 +136,7 @@ class ReactStickyScrollSpy extends Component{
     	}
 	}
 	render() {
+		console.log('was in render');
     	return (
 			<div ref="sticky">
 				<div>
