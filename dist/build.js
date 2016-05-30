@@ -165,6 +165,18 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			console.log('was here');
+			window.addEventListener('scroll', this.scrollEvent.bind(this, this));
+
+			this.menuItems = this.refs.sticky.getElementsByTagName('a');
+			// Anchors corresponding to menu items
+			this.scrollItems = [];
+			for (var i = 0; i < this.menuItems.length; i++) {
+				var item = this.menuItems.item(i);
+				if (item.getAttribute('href').length) {
+					this.scrollItems.push(item);
+					item.addEventListener('click', this.linkClick.bind(this, this));
+				}
+			}
 		}
 	}, {
 		key: 'componentWillUnmount',
