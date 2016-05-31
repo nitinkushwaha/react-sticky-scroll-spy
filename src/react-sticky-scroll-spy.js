@@ -2,7 +2,6 @@ import React from 'react';
 
 class ReactStickyScrollSpy extends React.Component{
 	constructor (props) {
-		console.log('was in constructor');
 		super(props);
 		this.easingEffects = {
 	        linear: function(t) {
@@ -113,30 +112,30 @@ class ReactStickyScrollSpy extends React.Component{
     	};
 	}
 	componentDidMount () {
-		console.log('was here');
 		window.addEventListener('scroll', this.scrollEvent.bind(this, this));
 
-		this.menuItems = this.refs.sticky.getElementsByTagName('a');
+		this.aTags = this.refs.sticky.getElementsByTagName('a');
 		// Anchors corresponding to menu items
-		this.scrollItems = [];
-		for(var i = 0; i < this.menuItems.length; i++) {
-			let item = this.menuItems.item(i);
-			if (item.getAttribute('href').length) {
-				this.scrollItems.push(item);
+		this.validaTags = [];
+		this.validIdTags = [];
+		for(var i = 0; i < this.aTags.length; i++) {
+			let item = this.aTags.item(i);
+			let id = item.getAttribute('href');
+			if (id.length) {
+				this.validIdTags.push(id);
+				this.validaTags.push(item);
 				item.addEventListener('click', this.linkClick.bind(this, this));
 			}
 		}
 	}
 	componentWillUnmount () {
-		console.log('was in unmount');
     	window.removeEventListener('scroll', this.scrollEvent);
-    	for(var i = 0; i < this.scrollItems.length; i++) {
-    		let item = this.scrollItems.item(i);
+    	for(var i = 0; i < this.validaTags.length; i++) {
+    		let item = this.validaTags.item(i);
     		item.removeEventListener('click', this.linkClick);
     	}
 	}
 	render() {
-		console.log('was in render');
     	return (
 			<div ref="sticky">
 				<div>
@@ -146,29 +145,30 @@ class ReactStickyScrollSpy extends React.Component{
     	);
   	}
   	scrollEvent (_self, event) {
-  		//this.scrollItems
+  		//this.validaTags
   		let cur = [];
   		let currentScroll = event.srcElement.body.scrollTop;
-  		for (let i = 0; i < _self.scrollItems.length; i++) {
-  			let href = _self.scrollItems[i].getAttribute('href');
+  		let elementHeightTop = this.refs.sticky.offsetTop;
+
+  		for (let i = 0; i < _self.validIdTags.length; i++) {
+  			let href = _self.validIdTags[i];
   			if (href != '#') {
   				let elementOffsetTop = document.getElementById(href.slice(1)).offsetTop;
-  				if (elementOffsetTop < currentScroll + _self.refs.sticky.childNodes[0].offsetHeight)
+  				if (elementOffsetTop < currentScroll + _self.refs.sticky.childNodes[0].offsetHeight) //#######
 					cur.push(href);
   			} else {
   				cur.push('#');
   			}
   		}
 		cur = cur[cur.length-1];
-		for (let i = 0; i < _self.menuItems.length; i++) {
-			if (cur == _self.menuItems[i].getAttribute('href')) {
-				_self.menuItems[i].parentNode.classList.add('active');
+		for (let i = 0; i < _self.aTags.length; i++) {
+			if (cur == _self.aTags[i].getAttribute('href')) {
+				_self.aTags[i].parentNode.classList.add('active');
 			} else {
-				_self.menuItems[i].parentNode.classList.remove('active');
+				_self.aTags[i].parentNode.classList.remove('active');
 			}
 		}
 
-  		let elementHeightTop = _self.refs.sticky.offsetTop;
   		if (elementHeightTop <= currentScroll) {
   			if (!_self.isFixed) {
   				let elementHeight = _self.refs.sticky.childNodes[0].offsetHeight;
