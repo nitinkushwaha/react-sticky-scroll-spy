@@ -169,7 +169,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 			this.validaTags = [];
 			this.validIdTags = [];
 			for (var i = 0; i < this.aTags.length; i++) {
-				var item = this.aTags.item(i);
+				var item = this.aTags[i];
 				var id = item.getAttribute('href');
 				if (id.length) {
 					this.validIdTags.push(id);
@@ -183,7 +183,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 		value: function componentWillUnmount() {
 			window.removeEventListener('scroll', this.scrollEvent);
 			for (var i = 0; i < this.validaTags.length; i++) {
-				var item = this.validaTags.item(i);
+				var item = this.validaTags[gi];
 				item.removeEventListener('click', this.linkClick);
 			}
 		}

@@ -119,7 +119,7 @@ class ReactStickyScrollSpy extends React.Component{
 		this.validaTags = [];
 		this.validIdTags = [];
 		for(var i = 0; i < this.aTags.length; i++) {
-			let item = this.aTags.item(i);
+			let item = this.aTags[i];
 			let id = item.getAttribute('href');
 			if (id.length) {
 				this.validIdTags.push(id);
@@ -131,7 +131,7 @@ class ReactStickyScrollSpy extends React.Component{
 	componentWillUnmount () {
     	window.removeEventListener('scroll', this.scrollEvent);
     	for(var i = 0; i < this.validaTags.length; i++) {
-    		let item = this.validaTags.item(i);
+    		let item = this.validaTags[gi];
     		item.removeEventListener('click', this.linkClick);
     	}
 	}
