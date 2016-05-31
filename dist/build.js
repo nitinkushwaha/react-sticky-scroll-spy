@@ -183,7 +183,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 		value: function componentWillUnmount() {
 			window.removeEventListener('scroll', this.scrollEvent);
 			for (var i = 0; i < this.validaTags.length; i++) {
-				var item = this.validaTags[gi];
+				var item = this.validaTags[i];
 				item.removeEventListener('click', this.linkClick);
 			}
 		}

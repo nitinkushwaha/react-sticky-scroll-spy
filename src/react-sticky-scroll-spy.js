@@ -131,7 +131,7 @@ class ReactStickyScrollSpy extends React.Component{
 	componentWillUnmount () {
     	window.removeEventListener('scroll', this.scrollEvent);
     	for(var i = 0; i < this.validaTags.length; i++) {
-    		let item = this.validaTags[gi];
+    		let item = this.validaTags[i];
     		item.removeEventListener('click', this.linkClick);
     	}
 	}
