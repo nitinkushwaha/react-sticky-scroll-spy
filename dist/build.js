@@ -47,8 +47,6 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 	function ReactStickyScrollSpy(props) {
 		_classCallCheck(this, ReactStickyScrollSpy);
 
-		console.log('was in constructor');
-
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ReactStickyScrollSpy).call(this, props));
 
 		_this.easingEffects = {
@@ -164,16 +162,18 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 	_createClass(ReactStickyScrollSpy, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			console.log('was here');
 			window.addEventListener('scroll', this.scrollEvent.bind(this, this));
 
-			this.menuItems = this.refs.sticky.getElementsByTagName('a');
+			this.aTags = this.refs.sticky.getElementsByTagName('a');
 			// Anchors corresponding to menu items
-			this.scrollItems = [];
-			for (var i = 0; i < this.menuItems.length; i++) {
-				var item = this.menuItems.item(i);
-				if (item.getAttribute('href').length) {
-					this.scrollItems.push(item);
+			this.validaTags = [];
+			this.validIdTags = [];
+			for (var i = 0; i < this.aTags.length; i++) {
+				var item = this.aTags.item(i);
+				var id = item.getAttribute('href');
+				if (id.length) {
+					this.validIdTags.push(id);
+					this.validaTags.push(item);
 					item.addEventListener('click', this.linkClick.bind(this, this));
 				}
 			}
@@ -181,17 +181,15 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
-			console.log('was in unmount');
 			window.removeEventListener('scroll', this.scrollEvent);
-			for (var i = 0; i < this.scrollItems.length; i++) {
-				var item = this.scrollItems.item(i);
+			for (var i = 0; i < this.validaTags.length; i++) {
+				var item = this.validaTags.item(i);
 				item.removeEventListener('click', this.linkClick);
 			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			console.log('was in render');
 			return _react3.default.createElement(
 				'div',
 				{ ref: 'sticky' },
@@ -205,28 +203,30 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 	}, {
 		key: 'scrollEvent',
 		value: function scrollEvent(_self, event) {
-			//this.scrollItems
+			//this.validaTags
 			var cur = [];
 			var currentScroll = event.srcElement.body.scrollTop;
-			for (var i = 0; i < _self.scrollItems.length; i++) {
-				var href = _self.scrollItems[i].getAttribute('href');
+			var elementHeightTop = this.refs.sticky.offsetTop;
+
+			for (var i = 0; i < _self.validIdTags.length; i++) {
+				var href = _self.validIdTags[i];
 				if (href != '#') {
 					var elementOffsetTop = document.getElementById(href.slice(1)).offsetTop;
-					if (elementOffsetTop < currentScroll + _self.refs.sticky.childNodes[0].offsetHeight) cur.push(href);
+					if (elementOffsetTop < currentScroll + _self.refs.sticky.childNodes[0].offsetHeight) //#######
+						cur.push(href);
 				} else {
 					cur.push('#');
 				}
 			}
 			cur = cur[cur.length - 1];
-			for (var _i = 0; _i < _self.menuItems.length; _i++) {
-				if (cur == _self.menuItems[_i].getAttribute('href')) {
-					_self.menuItems[_i].parentNode.classList.add('active');
+			for (var _i = 0; _i < _self.aTags.length; _i++) {
+				if (cur == _self.aTags[_i].getAttribute('href')) {
+					_self.aTags[_i].parentNode.classList.add('active');
 				} else {
-					_self.menuItems[_i].parentNode.classList.remove('active');
+					_self.aTags[_i].parentNode.classList.remove('active');
 				}
 			}
 
-			var elementHeightTop = _self.refs.sticky.offsetTop;
 			if (elementHeightTop <= currentScroll) {
 				if (!_self.isFixed) {
 					var elementHeight = _self.refs.sticky.childNodes[0].offsetHeight;
