@@ -1,6 +1,6 @@
 {
   "name": "react-sticky-scroll-spy",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React component for sticking nav bar and scroll spy",
   "main": "dist/build.js",
   "scripts": {

@@ -246,7 +246,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 					_childElement.position = 'relative';
 					_childElement.top = 'auto';
 					_childElement.width = 'auto';
-					_childElement.zIndex = auto;
+					_childElement.zIndex = 'auto';
 					_self.isFixed = false;
 				}
 			}

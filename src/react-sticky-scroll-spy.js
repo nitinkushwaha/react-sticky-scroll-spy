@@ -188,7 +188,7 @@ class ReactStickyScrollSpy extends React.Component{
 				childElement.position = 'relative';
 				childElement.top = 'auto';
 				childElement.width = 'auto';
-				childElement.zIndex = auto;
+				childElement.zIndex = 'auto';
   				_self.isFixed = false;
   			}
   		}
