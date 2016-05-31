@@ -148,7 +148,7 @@ class ReactStickyScrollSpy extends React.Component{
   		//this.validaTags
   		let cur = [];
   		let currentScroll = event.srcElement.body.scrollTop;
-  		let elementHeightTop = this.refs.sticky.getBoundingClientRect().top;
+  		let elementHeightTop = _self.refs.sticky.getBoundingClientRect().top;
 
   		for (let i = 0; i < _self.validIdTags.length; i++) {
   			let href = _self.validIdTags[i];

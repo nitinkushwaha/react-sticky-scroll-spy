@@ -206,7 +206,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 			//this.validaTags
 			var cur = [];
 			var currentScroll = event.srcElement.body.scrollTop;
-			var elementHeightTop = this.refs.sticky.getBoundingClientRect().top;
+			var elementHeightTop = _self.refs.sticky.getBoundingClientRect().top;
 
 			for (var i = 0; i < _self.validIdTags.length; i++) {
 				var href = _self.validIdTags[i];
