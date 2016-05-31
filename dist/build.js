@@ -206,7 +206,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 			//this.validaTags
 			var cur = [];
 			var currentScroll = event.srcElement.body.scrollTop;
-			var elementHeightTop = this.refs.sticky.offsetTop;
+			var elementHeightTop = this.refs.sticky.getBoundingClientRect().top;
 
 			for (var i = 0; i < _self.validIdTags.length; i++) {
 				var href = _self.validIdTags[i];
@@ -227,7 +227,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 				}
 			}
 
-			if (elementHeightTop <= currentScroll) {
+			if (elementHeightTop < 0) {
 				if (!_self.isFixed) {
 					var elementHeight = _self.refs.sticky.childNodes[0].offsetHeight;
 					_self.refs.sticky.style.height = elementHeight + 'px';
@@ -235,6 +235,8 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 					var childElement = _self.refs.sticky.childNodes[0].style;
 					childElement.position = 'fixed';
 					childElement.top = '0px';
+					childElement.width = '100%';
+					childElement.zIndex = 99999;
 					_self.isFixed = true;
 				}
 			} else {
@@ -243,6 +245,8 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 					var _childElement = _self.refs.sticky.childNodes[0].style;
 					_childElement.position = 'relative';
 					_childElement.top = 'auto';
+					_childElement.width = 'auto';
+					_childElement.zIndex = auto;
 					_self.isFixed = false;
 				}
 			}

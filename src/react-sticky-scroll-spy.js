@@ -148,7 +148,7 @@ class ReactStickyScrollSpy extends React.Component{
   		//this.validaTags
   		let cur = [];
   		let currentScroll = event.srcElement.body.scrollTop;
-  		let elementHeightTop = this.refs.sticky.offsetTop;
+  		let elementHeightTop = this.refs.sticky.getBoundingClientRect().top;
 
   		for (let i = 0; i < _self.validIdTags.length; i++) {
   			let href = _self.validIdTags[i];
@@ -169,7 +169,7 @@ class ReactStickyScrollSpy extends React.Component{
 			}
 		}
 
-  		if (elementHeightTop <= currentScroll) {
+  		if (elementHeightTop < 0) {
   			if (!_self.isFixed) {
   				let elementHeight = _self.refs.sticky.childNodes[0].offsetHeight;
 				_self.refs.sticky.style.height = elementHeight + 'px';
@@ -177,6 +177,8 @@ class ReactStickyScrollSpy extends React.Component{
   				let childElement =  _self.refs.sticky.childNodes[0].style;
 				childElement.position = 'fixed';
 				childElement.top = '0px';
+				childElement.width = '100%';
+				childElement.zIndex = 99999;
   				_self.isFixed = true;
   			}
   		} else {
@@ -185,6 +187,8 @@ class ReactStickyScrollSpy extends React.Component{
   				let childElement =  _self.refs.sticky.childNodes[0].style;
 				childElement.position = 'relative';
 				childElement.top = 'auto';
+				childElement.width = 'auto';
+				childElement.zIndex = auto;
   				_self.isFixed = false;
   			}
   		}
