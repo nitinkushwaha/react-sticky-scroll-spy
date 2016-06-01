@@ -110,9 +110,10 @@ class ReactStickyScrollSpy extends React.Component{
 	            return .5 > t ? .5 * easingEffects.easeInBounce(2 * t) : .5 * easingEffects.easeOutBounce(2 * t - 1) + .5
 	        }
     	};
+    	this.scrollFunction = this.scrollEvent.bind(this, this);
 	}
 	componentDidMount () {
-		window.addEventListener('scroll', this.scrollEvent.bind(this, this));
+		window.addEventListener('scroll', this.scrollFunction);
 
 		this.aTags = this.refs.sticky.getElementsByTagName('a');
 		// Anchors corresponding to menu items
@@ -129,7 +130,7 @@ class ReactStickyScrollSpy extends React.Component{
 		}
 	}
 	componentWillUnmount () {
-    	window.removeEventListener('scroll', this.scrollEvent);
+    	window.removeEventListener('scroll', this.scrollFunction);
     	for(var i = 0; i < this.validaTags.length; i++) {
     		let item = this.validaTags[i];
     		item.removeEventListener('click', this.linkClick);

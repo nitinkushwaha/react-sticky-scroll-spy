@@ -156,13 +156,14 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 				return .5 > t ? .5 * easingEffects.easeInBounce(2 * t) : .5 * easingEffects.easeOutBounce(2 * t - 1) + .5;
 			}
 		};
+		_this.scrollFunction = _this.scrollEvent.bind(_this, _this);
 		return _this;
 	}
 
 	_createClass(ReactStickyScrollSpy, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			window.addEventListener('scroll', this.scrollEvent.bind(this, this));
+			window.addEventListener('scroll', this.scrollFunction);
 
 			this.aTags = this.refs.sticky.getElementsByTagName('a');
 			// Anchors corresponding to menu items
@@ -181,7 +182,7 @@ var ReactStickyScrollSpy = _wrapComponent('ReactStickyScrollSpy')(function (_Rea
 	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
-			window.removeEventListener('scroll', this.scrollEvent);
+			window.removeEventListener('scroll', this.scrollFunction);
 			for (var i = 0; i < this.validaTags.length; i++) {
 				var item = this.validaTags[i];
 				item.removeEventListener('click', this.linkClick);
