@@ -189,6 +189,9 @@ class ReactStickyScrollSpy extends React.Component{
 				childElement.width = '100%';
 				childElement.zIndex = 99999;
   				_self.isFixed = true;
+  				if(typeof(_self.props.onFixedChange)==='function') {
+                	_self.props.onFixedChange(true);
+             	}
   			}
   		} else {
   			if (_self.isFixed) {
@@ -199,6 +202,9 @@ class ReactStickyScrollSpy extends React.Component{
 				childElement.width = 'auto';
 				childElement.zIndex = 'auto';
   				_self.isFixed = false;
+  				if(typeof(_self.props.onFixedChange)==='function') {
+                	_self.props.onFixedChange(false);
+             	}
   			}
   		}
   	}
@@ -229,5 +235,8 @@ class ReactStickyScrollSpy extends React.Component{
 	    }
 	}
 }
+ReactStickyScrollSpy.defaultProps = { 
+	onFixedChange: ()=>{} 
+};
 
 export default ReactStickyScrollSpy

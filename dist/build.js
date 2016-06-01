@@ -228,6 +228,9 @@ var ReactStickyScrollSpy = function (_React$Component) {
 					childElement.width = '100%';
 					childElement.zIndex = 99999;
 					_self.isFixed = true;
+					if (typeof _self.props.onFixedChange === 'function') {
+						_self.props.onFixedChange(true);
+					}
 				}
 			} else {
 				if (_self.isFixed) {
@@ -238,6 +241,9 @@ var ReactStickyScrollSpy = function (_React$Component) {
 					_childElement.width = 'auto';
 					_childElement.zIndex = 'auto';
 					_self.isFixed = false;
+					if (typeof _self.props.onFixedChange === 'function') {
+						_self.props.onFixedChange(false);
+					}
 				}
 			}
 		}
@@ -275,5 +281,9 @@ var ReactStickyScrollSpy = function (_React$Component) {
 
 	return ReactStickyScrollSpy;
 }(_react2.default.Component);
+
+ReactStickyScrollSpy.defaultProps = {
+	onFixedChange: function onFixedChange() {}
+};
 
 exports.default = ReactStickyScrollSpy;
