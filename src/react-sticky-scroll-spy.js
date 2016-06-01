@@ -111,12 +111,21 @@ class ReactStickyScrollSpy extends React.Component{
 	        }
     	};
     	this.scrollFunction = this.scrollEvent.bind(this, this);
+    	this.linkFunction = this.linkClick.bind(this, this);
 	}
 	componentDidMount () {
 		window.addEventListener('scroll', this.scrollFunction);
+		this.renderAgain();
+	}
+	renderAgain () {
+		if (this.validaTags && this.validaTags.length) {
+			for(var i = 0; i < this.validaTags.length; i++) {
+	    		let item = this.validaTags[i];
+	    		item.removeEventListener('click', this.linkFunction);
+    		}
+		}
 
 		this.aTags = this.refs.sticky.getElementsByTagName('a');
-		// Anchors corresponding to menu items
 		this.validaTags = [];
 		this.validIdTags = [];
 		for(var i = 0; i < this.aTags.length; i++) {
@@ -125,16 +134,15 @@ class ReactStickyScrollSpy extends React.Component{
 			if (id.length) {
 				this.validIdTags.push(id);
 				this.validaTags.push(item);
-				item.addEventListener('click', this.linkClick.bind(this, this));
+				item.addEventListener('click', this.linkFunction);
 			}
 		}
 	}
 	componentWillUnmount () {
     	window.removeEventListener('scroll', this.scrollFunction);
-    	for(var i = 0; i < this.validaTags.length; i++) {
-    		let item = this.validaTags[i];
-    		item.removeEventListener('click', this.linkClick);
-    	}
+	}
+	componentDidUpdate () {
+		this.renderAgain();
 	}
 	render() {
     	return (

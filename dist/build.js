@@ -134,6 +134,7 @@ var ReactStickyScrollSpy = function (_React$Component) {
 			}
 		};
 		_this.scrollFunction = _this.scrollEvent.bind(_this, _this);
+		_this.linkFunction = _this.linkClick.bind(_this, _this);
 		return _this;
 	}
 
@@ -141,18 +142,28 @@ var ReactStickyScrollSpy = function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			window.addEventListener('scroll', this.scrollFunction);
+			this.renderAgain();
+		}
+	}, {
+		key: 'renderAgain',
+		value: function renderAgain() {
+			if (this.validaTags && this.validaTags.length) {
+				for (var i = 0; i < this.validaTags.length; i++) {
+					var item = this.validaTags[i];
+					item.removeEventListener('click', this.linkFunction);
+				}
+			}
 
 			this.aTags = this.refs.sticky.getElementsByTagName('a');
-			// Anchors corresponding to menu items
 			this.validaTags = [];
 			this.validIdTags = [];
 			for (var i = 0; i < this.aTags.length; i++) {
-				var item = this.aTags[i];
-				var id = item.getAttribute('href');
+				var _item = this.aTags[i];
+				var id = _item.getAttribute('href');
 				if (id.length) {
 					this.validIdTags.push(id);
-					this.validaTags.push(item);
-					item.addEventListener('click', this.linkClick.bind(this, this));
+					this.validaTags.push(_item);
+					_item.addEventListener('click', this.linkFunction);
 				}
 			}
 		}
@@ -160,10 +171,11 @@ var ReactStickyScrollSpy = function (_React$Component) {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
 			window.removeEventListener('scroll', this.scrollFunction);
-			for (var i = 0; i < this.validaTags.length; i++) {
-				var item = this.validaTags[i];
-				item.removeEventListener('click', this.linkClick);
-			}
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			this.renderAgain();
 		}
 	}, {
 		key: 'render',
