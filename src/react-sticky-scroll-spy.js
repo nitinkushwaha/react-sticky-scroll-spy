@@ -131,7 +131,7 @@ class ReactStickyScrollSpy extends React.Component{
 		for(var i = 0; i < this.aTags.length; i++) {
 			let item = this.aTags[i];
 			let id = item.getAttribute('href');
-			if (id.length) {
+			if (id.length && id.slice(0,1) === '#') {
 				this.validIdTags.push(id);
 				this.validaTags.push(item);
 				item.addEventListener('click', this.linkFunction);
